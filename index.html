@@ -199,6 +199,73 @@
             </div>
         </div>
     </footer>
+<!-- Modal del Formulario -->
+<div id="contactModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white rounded-2xl w-full max-w-lg p-8 relative">
+        <button id="closeModalBtn" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+        <div id="formContainer">
+            <h2 class="text-2xl font-bold mb-4 text-slate-900">Formulario de contacto</h2>
+            <form id="contactForm" action="https://formspree.io/f/myznodkw" method="POST" class="space-y-4">
+                <input type="text" name="nombre" placeholder="Nombre y apellido" required class="w-full border border-gray-300 rounded px-3 py-2">
+                <input type="email" name="email" placeholder="Email" required class="w-full border border-gray-300 rounded px-3 py-2">
+                <input type="tel" name="telefono" placeholder="Teléfono de contacto" required class="w-full border border-gray-300 rounded px-3 py-2">
+                <select name="tipo" required class="w-full border border-gray-300 rounded px-3 py-2">
+                    <option value="" disabled selected>Seleccione una opción</option>
+                    <option value="Institución Educativa">Institución Educativa</option>
+                    <option value="Empresa">Empresa</option>
+                    <option value="Alumno">Alumno</option>
+                </select>
+                <textarea name="comentario" placeholder="Déjanos tu comentario" rows="4" required class="w-full border border-gray-300 rounded px-3 py-2"></textarea>
+                <button type="submit" class="bg-sky-600 text-white px-4 py-2 rounded hover:bg-sky-700 w-full font-bold">Enviar</button>
+            </form>
+        </div>
+        <div id="successMessage" class="hidden text-center text-green-600 font-semibold text-lg">
+            Gracias por tu contacto! En breve nos pondremos en contacto contigo
+        </div>
+    </div>
+</div>
+<script>
+    const openBtn = document.querySelector('#unete button'); // tu botón actual en la sección CTA
+    const closeBtn = document.getElementById('closeModalBtn');
+    const modal = document.getElementById('contactModal');
+    const form = document.getElementById('contactForm');
+    const formContainer = document.getElementById('formContainer');
+    const successMessage = document.getElementById('successMessage');
+
+    // Abrir modal
+    openBtn.addEventListener('click', () => {
+        modal.classList.remove('hidden');
+    });
+
+    // Cerrar modal
+    closeBtn.addEventListener('click', () => {
+        modal.classList.add('hidden');
+        formContainer.classList.remove('hidden');
+        successMessage.classList.add('hidden');
+        form.reset();
+    });
+
+    // Envío del formulario con fetch
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const data = new FormData(form);
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            });
+            if (response.ok) {
+                formContainer.classList.add('hidden');
+                successMessage.classList.remove('hidden');
+            } else {
+                alert('Hubo un error al enviar el formulario. Por favor, intente nuevamente.');
+            }
+        } catch (error) {
+            alert('Hubo un error al enviar el formulario. Por favor, intente nuevamente.');
+        }
+    });
+</script>
 
 </body>
 </html>
