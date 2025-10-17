@@ -230,6 +230,29 @@
     </form>
   </div>
 </div>
+<script>
+  const openModalBtn = document.querySelector('#unete button'); // el botón de "Solicitar más información"
+  const modal = document.getElementById('modalForm');
+  const closeModalBtn = document.getElementById('closeModal');
+
+  openModalBtn.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  });
+
+  closeModalBtn.addEventListener('click', () => {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  });
+
+  // Cerrar modal haciendo click fuera del contenido
+  modal.addEventListener('click', (e) => {
+    if(e.target === modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  });
+</script>
 
 </body>
 </html>
