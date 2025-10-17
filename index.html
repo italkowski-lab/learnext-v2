@@ -66,13 +66,38 @@
                         Saber más
                     </a>
                 </div>
-<!-- Video LEARNEXT -->
-<div class="max-w-4xl mx-auto mb-10 mt-12">
-  <video controls preload="none" class="w-full rounded-2xl shadow-lg" poster="preview.jpg">
+<!-- Video LEARNEXT con preview -->
+<div class="max-w-4xl mx-auto mb-10 mt-12 relative">
+  <!-- Imagen de preview -->
+  <div id="videoPreview" class="relative cursor-pointer">
+    <img src="preview.jpg" alt="LEARNEXT Video" class="w-full rounded-2xl shadow-lg">
+    <!-- Botón Play -->
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div class="bg-white/80 rounded-full p-5 shadow-lg hover:bg-white transition">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#0284c7" viewBox="0 0 24 24" width="60" height="60">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Video oculto -->
+  <video id="learnextVideo" controls preload="none" class="w-full rounded-2xl shadow-lg hidden">
     <source src="https://res.cloudinary.com/dlfupnsvt/video/upload/v1739711450/Learnext_vyqnjv.mp4" type="video/mp4">
     Tu navegador no soporta la reproducción de video.
   </video>
 </div>
+
+<script>
+  const preview = document.getElementById('videoPreview');
+  const video = document.getElementById('learnextVideo');
+
+  preview.addEventListener('click', () => {
+    preview.classList.add('hidden');
+    video.classList.remove('hidden');
+    video.play();
+  });
+</script>
 
         </section>
 
